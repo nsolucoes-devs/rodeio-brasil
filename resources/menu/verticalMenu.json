@@ -1,0 +1,31 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "dashboard"
+    },
+    {
+      "name": "Users",
+      "icon": "menu-icon tf-icons bx bx-users",
+      "slug": "Users",
+      "submenu": [
+        {
+          "url": "usuarios",
+          "name": "Listagem de usuários",
+          "slug": "usuarios-listagem",
+            "badge": [
+                "success",
+                "Novo"
+            ]
+        },
+        {
+          "url": "usuarios/novo",
+          "name": "Cadastrar novo usuário",
+          "slug": "usuarios-novo"
+        }
+      ]
+    }
+  ]
+}
