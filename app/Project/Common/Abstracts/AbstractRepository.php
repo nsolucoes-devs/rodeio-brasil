@@ -16,9 +16,13 @@ class AbstractRepository implements RepositoryInterface
         return $this->model;
     }
 
-    public function all(?array $params = null, $with = [])
+    public function all(?array $params = null, $with = [], $paginate = true)
     {
-        return $this->getModel()->query($params)->with($with)->paginate(10)->withQueryString();
+        if ($paginate) {
+            return $this->getModel()->query($params)->with($with)->paginate(10)->withQueryString();
+        }
+        
+        return $this->getModel()->query($params)->with($with)->get();
     }
 
     public function find(mixed $id, array $with = [], array $withCount = []): Model|Collection|Builder|array|null

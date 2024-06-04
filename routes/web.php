@@ -1,5 +1,12 @@
 <?php
 
+use App\Classes\Assas;
+use App\Http\Controllers\Assas\AssasController;
+use App\Http\Controllers\Assas\AssasWebhookController;
+use App\Http\Controllers\CandidatesController;
+use App\Models\FailsPayments;
+use App\Project\HistoryPaymentLinks\Services\HistoryPaymentLinksService;
+use App\Project\Subscriptions\Services\SubscriptionService;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,13 +21,14 @@ Route::get('/contato', function () {
     return view('public.contact');
 })->name('contact');
 
-Route::get('/candidados', function () {
-    return view('public.candidates.index');
-})->name('candidates');
+Route::get('/candidatos', [CandidatesController::class, 'index'])->name('candidates');
+Route::get('/candidatos/{code}', [CandidatesController::class, 'show'])->name('candidates.show');
+Route::post('/vote', [CandidatesController::class, 'makeVote'])->name('vote');
+Route::post('/generatePaymentLink', [AssasController::class, 'generatePaymentLink'])->name('generatePaymentLink');
 
-Route::get('/candidados/{code}/{slug?}', function ($code) {
-    return view('public.candidates.show', ['code' => $code]);
-})->name('candidates.show');
+// Webhook
+Route::post('/webhook/assas', [AssasWebhookController::class, 'payment'])->name('webhook');
+
 
 Route::get('/login', function () {
     return view('auth.login');
